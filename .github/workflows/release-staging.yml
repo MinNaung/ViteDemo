@@ -1,0 +1,48 @@
+## This is a workflow file that will create a staging release of your project
+## But currently there is no staging envrionment in the project yet.
+## TODO: Create a staging environment for the project
+
+name: "Release Staging"
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write   # Allows pushing commits and tags to the repository
+
+jobs:
+  release-staging:
+    name: "Create Staging Release"
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: "Checkout code"
+        uses: actions/checkout@v3
+
+      - name: "Setup Node.js"
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: "npm"
+
+      - name: "Install dependencies"
+        run: npm ci
+
+      - name: "Build project"
+        run: npm run build:staging  # Assuming you have a separate build script for staging
+
+      - name: "Archive build artifacts"
+        run: |
+          mkdir -p dist
+          zip -r dist/build.zip dist
+
+      - name: "Run semantic-release"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npx semantic-release
+
+      - name: "Upload build artifacts"
+        uses: actions/upload-artifact@v4
+        with:
+          name: build
+          path: dist/build.zip
