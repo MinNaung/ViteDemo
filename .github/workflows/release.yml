@@ -3,6 +3,9 @@ name: "Release"
 on:
   workflow_dispatch:
 
+permissions:
+  contents: write   # Allows pushing commits and tags to the repository
+
 jobs:
   release:
     name: "Create Release"
