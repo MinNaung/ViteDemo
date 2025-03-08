@@ -1,6 +1,6 @@
 module.exports = {
     branches: [
-        { name: 'main', prerelease: false, channel: false },
+        { name: 'master', prerelease: false, channel: false },
         { name: 'development', prerelease: 'next', channel: 'next' },
     ],
     plugins: [
