@@ -1,0 +1,20 @@
+name: Custom Branch Run
+
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: "Branch to run the workflow against"
+        required: true
+        default: "development"
+
+jobs:
+  run-on-branch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout specified branch
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.inputs.branch }}
+      - name: Do something
+        run: echo "Running workflow on branch ${{ github.event.inputs.branch }}"
