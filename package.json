@@ -7,6 +7,9 @@
     "type": "git",
     "url": "https://github.com/MinNaung/ViteDemo.git"
   },
+  "engines": {
+        "node": ">=20.8.1 "
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
